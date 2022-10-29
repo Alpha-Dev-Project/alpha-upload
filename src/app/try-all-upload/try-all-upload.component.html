@@ -1,0 +1,18 @@
+<div class="try-all-container">
+    <div *ngIf="showWarning" class="try-all-warning" [class]="continued ? 'try-all-warning fade-out' :'try-all-warning fade-in' ">
+        <div class="mat-headline try-all-warning-title">WARNING</div>
+        <div class="mat-body-1 try-all-warning-text">This will attempt to overwrite any programs already loaded onto a connected microcontroller. Before continuing, diconnect any devices you do not wish to overwrite.<br />
+             Note: This does not include peripherals such as keybords, mouse, USB hubs, etc.
+        </div>
+        <div class="try-all-warning-buttons-div">
+            <button mat-stroked-button class="warning-button cancel-button" mat-dialog-close>Cancel</button>
+            <button mat-flat-button color="accent" class="warning-button continue-button" (click)="warningContinue()">Continue</button>
+        </div>
+    </div>
+    <div class="try-all-console-div" >
+        <button *ngIf="prog_val === 100" mat-icon-button class="try-all-copy-console" (click)="copy()"> <mat-icon>content_copy</mat-icon> </button>
+        <div #consoleText class="try-all-console-text" [innerHTML]="console_text"></div>
+    </div>
+    <div class="try-all-progres-bar-div" [style.width.%]="prog_val">
+    </div>
+</div>

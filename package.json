@@ -1,24 +1,64 @@
 {
-  "name": "alpha-upload",
-  "version": "0.0.0",
+  "name": "Alpha-Upload",
+  "version": "0.0.1X",
+  "main": "main.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "electron": "electron .",
+    "electron-build": "ng build --configuration production",
+    "dist-mac": "electron-builder -m --x64 --arm64",
+    "dist-linux": "electron-builder -l --x64 --arm64",
+    "dist-windows": "electron-builder --ia32 --x64 -w"
+  },
+  "build": {
+    "appId": "com.alpha.AlphaUpload",
+    "icon": "icon.ico",
+    "win": {
+      "target": "portable"
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    }
   },
   "private": true,
   "dependencies": {
     "@angular/animations": "^14.1.0",
+    "@angular/cdk": "^14.2.5",
     "@angular/common": "^14.1.0",
     "@angular/compiler": "^14.1.0",
     "@angular/core": "^14.1.0",
     "@angular/forms": "^14.1.0",
+    "@angular/material": "^14.2.5",
     "@angular/platform-browser": "^14.1.0",
     "@angular/platform-browser-dynamic": "^14.1.0",
     "@angular/router": "^14.1.0",
+    "avrgirl-arduino": "^5.0.1",
+    "electron-unhandled": "^4.0.1",
+    "fs": "^0.0.1-security",
+    "ngx-electron": "^2.2.0",
+    "path": "^0.12.7",
     "rxjs": "~7.5.0",
+    "shell": "^0.9.4",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
@@ -27,6 +67,10 @@
     "@angular/cli": "~14.1.0",
     "@angular/compiler-cli": "^14.1.0",
     "@types/jasmine": "~4.0.0",
+    "electron": "^14.0.0",
+    "electron-builder": "^23.6.0",
+    "electron-packager": "^17.0.0",
+    "electron-rebuild": "^3.2.9",
     "jasmine-core": "~4.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

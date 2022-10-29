@@ -1,1 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+body {
+    height: 420px;
+    width: 700px;
+    border-radius: 12px;
+}
+.cdk-overlay-backdrop {
+    border-radius: 12px !important;
+}
+
+.app-full-bleed-dialog .mat-dialog-container {
+    padding: 0;
+}
+
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #0000; 
+}
+::-webkit-scrollbar-thumb {
+    background-color: #777777; 
+    border-radius: 3px;
+}

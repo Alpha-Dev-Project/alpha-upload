@@ -1,0 +1,8 @@
+<div class="upload-container">
+    <div class="upload-console-div" >
+        <button *ngIf="prog_val === 100" mat-icon-button class="upload-copy-console" (click)="copy()"> <mat-icon>content_copy</mat-icon> </button>
+        <div class="upload-console-text" [innerHTML]="console_text"></div>
+    </div>
+    <div class="upload-progres-bar-div" [style.width.%]="prog_val">
+    </div>
+</div>
