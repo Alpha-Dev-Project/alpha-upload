@@ -7,7 +7,7 @@ import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
 import { ProgramSelectorComponent } from './program-selector/program-selector.component';
 import { SessionService } from './session.service';
-import { NgxElectronModule } from 'ngx-electron';
+import { NgxElectronModule } from 'ngx-electron-fresh';
 import { UploadComponent } from './upload/upload.component';
 import { TryAllUploadComponent } from './try-all-upload/try-all-upload.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -19,7 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProgramSelectorComponent,
     UploadComponent,
     TryAllUploadComponent
-    
+
   ],
   imports: [
     BrowserModule,

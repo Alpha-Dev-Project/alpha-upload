@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ElectronService } from 'ngx-electron';
+import { ElectronService } from 'ngx-electron-fresh';
 import { boards_indices } from '../com-devices-data';
 import { IConfig } from '../data-structures';
 import { SessionService } from '../session.service';
@@ -93,7 +93,7 @@ export class TryAllUploadComponent implements OnInit {
     }
 
     this.prog_val = 100;
-    this.dialogRef.disableClose = false;    
+    this.dialogRef.disableClose = false;
   }
 
   public upload(config: IConfig) {
@@ -106,12 +106,12 @@ export class TryAllUploadComponent implements OnInit {
         selected_program_version: config.selected_program_version,
       }
       this.electron.ipcRenderer.send("upload", upload_conf);
-      this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => { 
+      this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => {
         let txt = (typeof data === "string") ? data : `${data.text} :: ${data.error}`;
         this.consoleAppend(txt)
-        
+
         this.prog_val += (20 * (1/this.configs_len));
-        
+
         if(txt.includes("Fail")) {
           return reject(txt);
         }

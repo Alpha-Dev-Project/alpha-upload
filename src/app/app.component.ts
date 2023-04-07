@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
 import { boards, BoardsNames } from './com-devices-data';
 import { SessionService } from './session.service';
-import { ElectronService } from 'ngx-electron';
+import { ElectronService } from 'ngx-electron-fresh';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UploadComponent } from './upload/upload.component';
 import { TryAllUploadComponent } from './try-all-upload/try-all-upload.component';
- 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { ElectronService } from 'ngx-electron';
+import { ElectronService } from 'ngx-electron-fresh';
 import { SessionService } from '../session.service';
 
 @Component({
@@ -40,10 +40,10 @@ export class UploadComponent implements OnInit {
       selected_program_version: this.session.config.selected_program_version,
     }
     this.electron.ipcRenderer.send("upload", upload_conf);
-    this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => { 
+    this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => {
       const text = (typeof data === "string") ? data : `${data.text} :: ${data.error}`;
       this.console_text += `> ${text}<br />`;
-      
+
       if(!text.includes("Fail")) this.prog_val += 25;
       else this.prog_val = 100;
       if(this.prog_val >= 95) this.dialogRef.disableClose = false;

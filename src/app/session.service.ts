@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ElectronService } from 'ngx-electron';
+import { ElectronService } from 'ngx-electron-fresh';
 import { boards } from './com-devices-data';
 import { IComPort, IConfig } from './data-structures';
 import { IProgram, programs } from './programs';
@@ -45,7 +45,7 @@ export class SessionService {
   public com_ports: Array<IComPort> = [];
   public programs!: Array<IProgram>;
   public boards = boards;
-  public config: IConfig = { 
+  public config: IConfig = {
     port: "COM1",
     microcontroller: "Arduino Nano",
     processor: "ATmega328P",
@@ -63,12 +63,12 @@ export class SessionService {
       if(this.com_ports.length > 0) this.config.port = ports[0].port;
       this.electron.ipcRenderer.on("ports", (event, ports) => this.com_ports = ports );
     });
-    
+
     this.config.selected_program_version = this.programs[this.config.selected_program].versions.length-1;
-    
+
   }
 
-  private getPrograms() {   
+  private getPrograms() {
     this.http.get<Array<IProgram>>("https://raw.githubusercontent.com/KATSU-dev/temp-hex-repo/main/programs.json")
     .subscribe({
       next: (programs: Array<IProgram>) => {
