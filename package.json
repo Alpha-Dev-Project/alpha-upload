@@ -59,6 +59,7 @@
     "@octokit/rest": "^19.0.7",
     "avrgirl-arduino": "^5.0.1",
     "electron-unhandled": "^4.0.1",
+    "follow-redirects": "^1.15.2",
     "fs": "^0.0.1-security",
     "ngx-electron-fresh": "^1.0.9",
     "path": "^0.12.7",

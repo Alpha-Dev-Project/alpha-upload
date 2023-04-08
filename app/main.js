@@ -1,12 +1,12 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const fs = require('fs');
-const readline = require('readline');
-const http = require('https');
 const path = require('path');
 
-const { getPortsList, generateBoardFromConfig, flashHexFile } = require('./arduino')
+const { getPortsList, generateBoardFromConfig, flashHexFile } = require('./arduino');
+const { fetchFile, checkFile, removeFile } = require('./fetch-file');
 
 const prod = app.isPackaged;
+const fileName = "/firmware.hex";
 
 let win;
 function createWindow() {
@@ -112,40 +112,38 @@ ipcMain.on('linkto', (event, link) => {
 });
 
 ipcMain.on('upload', async (event, config) => {
-  if(config.selected_program.isHex) {
-    const file_name = getFileNameFromConfig(config);
-    const board = generateBoardFromConfig(config);
-    if(typeof board === "string") {
-      console.log(board);
-      win.webContents.send("upload-ret", board);
-      return;
-    }
+  const filePath = path.join(__dirname, fileName)
+  const board = generateBoardFromConfig(config);
+  if (typeof board === "string") {
+    console.log(board);
+    win.webContents.send("upload-ret", board);
+    return;
+  }
 
-    win.webContents.send("upload-ret", "Fetching file...");
-    fetchFile(file_name).then(() => {
-      win.webContents.send("upload-ret", "Checking file...");
-      checkFile(file_name).then(() => {
-        win.webContents.send("upload-ret", "Flashing file. Please wait...");
-        flashHexFile(board, file_name).then(() => {
-          win.webContents.send("upload-ret", "Cleaning up...");
-          removeFile(file_name).then(() => {
-            win.webContents.send("upload-ret", "SUCCESS")
-          }).catch(err => {
-            win.webContents.send("upload-ret", {text: "Failed to remove file.", error: err})
-          });
+  win.webContents.send("upload-ret", "Fetching file...");
+  fetchFile(config.url, filePath).then(() => {
+    win.webContents.send("upload-ret", "Checking file...");
+    checkFile(filePath).then(() => {
+      win.webContents.send("upload-ret", "Flashing file. Please wait...");
+      flashHexFile(board, filePath).then(() => {
+        win.webContents.send("upload-ret", "Cleaning up...");
+        removeFile(filePath).then(() => {
+          win.webContents.send("upload-ret", "SUCCESS")
         }).catch(err => {
-          win.webContents.send("upload-ret", {text: "Failed flash file to microcontroller.", error: err})
-          removeFile(file_name).catch(err => {
-            win.webContents.send("upload-ret", {text: "Failed to remove file.", error: err})
-          });
+          win.webContents.send("upload-ret", {text: "Failed to remove file.", error: err})
         });
       }).catch(err => {
-        win.webContents.send("upload-ret", {text: "Failed to find file.", error: err})
+        win.webContents.send("upload-ret", {text: "Failed flash file to microcontroller.", error: err})
+        removeFile(filePath).catch(err => {
+          win.webContents.send("upload-ret", {text: "Failed to remove file.", error: err})
+        });
       });
     }).catch(err => {
-      win.webContents.send("upload-ret", {text: "Failed to acquire file from source.", error: err})
+      win.webContents.send("upload-ret", {text: "Failed to find file.", error: err})
     });
-  }
+  }).catch(err => {
+    win.webContents.send("upload-ret", {text: "Failed to acquire file from source.", error: err})
+  });
 });
 
 ipcMain.on('try-all', (event, arg) => {
