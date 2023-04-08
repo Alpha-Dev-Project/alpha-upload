@@ -4,11 +4,11 @@ import { Output, EventEmitter } from '@angular/core';
 import { SessionService } from '../session.service';
 
 @Component({
-  selector: 'app-program-selector',
-  templateUrl: './program-selector.component.html',
-  styleUrls: ['./program-selector.component.css']
+  selector: 'app-firmware-selector',
+  templateUrl: './firmware-selector.component.html',
+  styleUrls: ['./firmware-selector.component.css']
 })
-export class ProgramSelectorComponent implements OnInit {
+export class FirmwareSelectorComponent implements OnInit {
   @Input('expand') expand_obsvble!: Observable<string>;
   @Output() SelectedEvent = new EventEmitter<number>();
   public show_short_form: boolean = true;
@@ -28,7 +28,7 @@ export class ProgramSelectorComponent implements OnInit {
         show: false,
         hide: true,
       }
-      
+
       setTimeout(() => {
         this.long_form_classes = {
           show: true,
@@ -43,7 +43,7 @@ export class ProgramSelectorComponent implements OnInit {
         show: false,
         hide: true,
       }
-      
+
       setTimeout(() => {
         this.short_form_classes = {
           show: true,
@@ -55,13 +55,13 @@ export class ProgramSelectorComponent implements OnInit {
     }
   }
 
-  public programSelected(index: number) {
-    this.session.selectProgram(index);
+  public firmwareSelected(index: number) {
+    this.session.selectFirmware(index);
     this.switch('short');
     this.SelectedEvent.emit();
   }
 
-  public getSelectedProgramVersionString() {
+  public getSelectedFirmwareVersionString() {
     return "V1.0.0"
   }
 }

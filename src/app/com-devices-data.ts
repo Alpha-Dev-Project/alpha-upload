@@ -41,8 +41,9 @@ export const boards: Array<IUCBoard> = [
 ];
 
 export var boards_indices: Array<string> = []
+
 function fillBoardsIndices() {
-    for(let i: number = 0; i<boards.length; i++) 
+    for(let i: number = 0; i<boards.length; i++)
         boards_indices[i] = boards[i].pretty_name;
 }
 fillBoardsIndices();

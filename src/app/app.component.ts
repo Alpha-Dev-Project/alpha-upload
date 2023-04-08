@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Observable, Observer } from 'rxjs';
+import { ElectronService } from 'ngx-electron-fresh';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 import { boards, BoardsNames } from './com-devices-data';
 import { SessionService } from './session.service';
-import { ElectronService } from 'ngx-electron-fresh';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { UploadComponent } from './upload/upload.component';
 import { TryAllUploadComponent } from './try-all-upload/try-all-upload.component';
 
@@ -12,12 +13,13 @@ import { TryAllUploadComponent } from './try-all-upload/try-all-upload.component
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'alpha-upload';
   public expand_obsvble!: Observable<string>;
   public expand_obsrvr!: Observer<string>;
   public expand: boolean = false;
   public boards = boards;
+  public version!: string;
 
   constructor(public session: SessionService,
               private electron: ElectronService,
@@ -25,17 +27,18 @@ export class AppComponent {
     this.expand_obsvble = new Observable(observer => {
       this.expand_obsrvr = observer;
     });
+
+    this.version = this.electron.ipcRenderer.sendSync('version')
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
-  public expandProgramSelector() {
+  public expandFirmwareSelector() {
     this.expand = !this.expand;
     this.expand_obsrvr.next(this.expand ? 'long' : 'short');
   }
 
-  public programSelected() {
+  public firmwareSelected() {
     this.expand = false;
   }
 

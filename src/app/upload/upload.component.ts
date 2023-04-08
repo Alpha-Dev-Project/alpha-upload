@@ -36,8 +36,8 @@ export class UploadComponent implements OnInit {
       port: this.session.config.port,
       microcontroller: this.session.config.microcontroller,
       processor: this.session.config.processor,
-      selected_program: this.session.programs[this.session.config.selected_program],
-      selected_program_version: this.session.config.selected_program_version,
+      selected_firmware: this.session.firmware[this.session.config.selected_firmware],
+      selected_firmware_version: this.session.config.selected_firmware_version,
     }
     this.electron.ipcRenderer.send("upload", upload_conf);
     this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => {

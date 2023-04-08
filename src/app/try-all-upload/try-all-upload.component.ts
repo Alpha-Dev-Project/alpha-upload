@@ -49,7 +49,7 @@ export class TryAllUploadComponent implements OnInit {
 
   public async uploadAll() {
     let configs: Array<IConfig> = [];
-    const boards = this.session.programs[this.session.config.selected_program].available_boards;
+    const boards = this.session.firmware[this.session.config.selected_firmware].repo.getBoards();
 
     this.session.com_ports.forEach(port => {
       this.session.boards.forEach(board => {
@@ -60,8 +60,8 @@ export class TryAllUploadComponent implements OnInit {
                 port: port.port,
                 microcontroller: board.pretty_name,
                 processor: processor,
-                selected_program: this.session.config.selected_program,
-                selected_program_version: this.session.config.selected_program_version
+                selected_firmware: this.session.config.selected_firmware,
+                selected_firmware_version: this.session.config.selected_firmware_version
               });
             });
           }
@@ -70,8 +70,8 @@ export class TryAllUploadComponent implements OnInit {
               port: port.port,
               microcontroller: board.pretty_name,
               processor: "",
-              selected_program: this.session.config.selected_program,
-              selected_program_version: this.session.config.selected_program_version
+              selected_firmware: this.session.config.selected_firmware,
+              selected_firmware_version: this.session.config.selected_firmware_version
             });
           }
         }
@@ -102,8 +102,8 @@ export class TryAllUploadComponent implements OnInit {
         port: config.port,
         microcontroller: config.microcontroller,
         processor: config.processor,
-        selected_program: this.session.programs[config.selected_program],
-        selected_program_version: config.selected_program_version,
+        selected_firmware: this.session.firmware[config.selected_firmware],
+        selected_firmware_version: config.selected_firmware_version,
       }
       this.electron.ipcRenderer.send("upload", upload_conf);
       this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => {

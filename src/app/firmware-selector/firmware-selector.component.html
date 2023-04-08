@@ -1,0 +1,44 @@
+<div class="selector-container">
+    <div *ngIf="show_short_form && session.isLoaded" class="short-form" [class]="short_form_classes" >
+        <div class="icon-div">
+            <img class="selector-icon" src="assets\images\AU_TRANS_WHITE.svg"/>
+        </div>
+        <div class="firmware-title-div">
+            <div class="title-div">
+                <div class="mat-title firmware-title">{{session.firmware[session.config.selected_firmware].name}}</div>
+            </div>
+            <div class="firmware-version-selector">
+                <button style="float: left;" mat-icon-button class="firmware-version-selector-btn btn-left" (click)="session.versionChange('left')">
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+                <div style="float: left;" class="mat-caption firmware-version-text">
+                    {{ session.firmware[session.config.selected_firmware].repo.getVersions()[session.config.selected_firmware_version] }}
+                </div>
+                <button style="float: left;" mat-icon-button class="firmware-version-selector-btn btn-left" (click)="session.versionChange('right')">
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div class="firmware-desc-div">
+            <div class="description-div">
+                <div class="firmware-description" [innerHtml]="session.firmware[session.config.selected_firmware].description"></div>
+            </div>
+            <div class="more-info-div"><div class="more-info" (click)="session.clickedMoreInfo()">More Info</div></div>
+        </div>
+
+    </div>
+
+    <div *ngIf="show_long_form" class="long-form" [class]="long_form_classes" >
+        <div *ngFor="let firmware of session.firmware; index as i" class="long-form-entry-root">
+            <div class="long-form-entry" (click)="firmwareSelected(i)">
+                <div class="lf-icon-div">
+                    <img class="lf-selector-icon" src="assets\images\AU_TRANS_WHITE.svg"/>
+                </div>
+                <div class="lf-firmware-text-div">
+                    <div class="mat-title lf-firmware-title">{{firmware.name}}</div>
+                </div>
+            </div>
+            <mat-divider ></mat-divider>
+        </div>
+    </div>
+</div>

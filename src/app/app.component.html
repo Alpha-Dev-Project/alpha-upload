@@ -13,10 +13,10 @@
       </div>
     </div>
     <div class="left" [class]="expand ? 'long' : 'short'">
-      <app-program-selector class="program-selector" [expand]="expand_obsvble" (SelectedEvent)="programSelected()"></app-program-selector>
-      <div class="left-expand-btn" [class]="expand ? 'left-expand-btn-move-down' : 'left-expand-btn-move-up'" (click)="expandProgramSelector()"><mat-icon>expand_more</mat-icon></div>
+      <app-firmware-selector class="firmware-selector" [expand]="expand_obsvble" (SelectedEvent)="firmwareSelected()"></app-firmware-selector>
+      <div class="left-expand-btn" [class]="expand ? 'left-expand-btn-move-down' : 'left-expand-btn-move-up'" (click)="expandFirmwareSelector()"><mat-icon>expand_more</mat-icon></div>
     </div>
-    <div class="right">
+    <div class="right" *ngIf="session.isLoaded">
       <div class="form-titles">
         <div class="mat-body-1 form-title">COM Port</div>
         <div class="mat-body-1 form-title">Microcontroller Board</div>
@@ -24,21 +24,21 @@
       </div>
       <form #session.configform="ngForm" class="form">
         <mat-form-field class="form-1 form-select">
-          <mat-select name="port" [(ngModel)]="session.config.port" [disabled]="session.com_ports.length == 0">
+          <mat-select name="port" [(ngModel)]="session.config.port" [disabled]="session.com_ports.length === 0">
             <mat-option *ngFor="let port of session.com_ports" [value]="port.port">
               {{port.port}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="form-2 form-select">
-          <mat-select name="microcontroller" [(ngModel)]="session.config.microcontroller" [disabled]="session.com_ports.length == 0">
-            <mat-option *ngFor="let board of session.programs[session.config.selected_program].available_boards" [value]="board">
+          <mat-select name="microcontroller" [(ngModel)]="session.config.microcontroller" [disabled]="session.com_ports.length === 0">
+            <mat-option *ngFor="let board of session.firmware[session.config.selected_firmware].repo.getBoards()" [value]="board">
               {{board}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <mat-form-field class="form-3 form-select">
-          <mat-select name="processor" [(ngModel)]="session.config.processor" [disabled]="!checkProcessorOptionAvailable() || session.com_ports.length == 0">
+          <mat-select name="processor" [(ngModel)]="session.config.processor" [disabled]="!checkProcessorOptionAvailable() || session.com_ports.length === 0">
             <mat-option *ngFor="let processor of getProcessorsList()" [value]="processor">
               {{processor}}
             </mat-option>
@@ -56,5 +56,5 @@
       </div>
     </div>
   </div>
-  <div class="mat-caption version-caption">V0.0.1X</div>
+  <div class="mat-caption version-caption">V{{version}}</div>
 </div>

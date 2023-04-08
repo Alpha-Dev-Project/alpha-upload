@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material/material.module';
 import { FormsModule } from '@angular/forms';
-import { ProgramSelectorComponent } from './program-selector/program-selector.component';
+import { FirmwareSelectorComponent } from './firmware-selector/firmware-selector.component';
 import { SessionService } from './session.service';
 import { NgxElectronModule } from 'ngx-electron-fresh';
 import { UploadComponent } from './upload/upload.component';
@@ -16,7 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent,
-    ProgramSelectorComponent,
+    FirmwareSelectorComponent,
     UploadComponent,
     TryAllUploadComponent
 

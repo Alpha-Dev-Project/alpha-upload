@@ -16,8 +16,8 @@
 }
 
 .icon-div { grid-area: 1 / 1 / 5 / 4;  position: relative; pointer-events: none;}
-.program-title-div { grid-area: 1 / 4 / 5 / 10; }
-.program-desc-div { grid-area: 5 / 1 / 11 / 10; }
+.firmware-title-div { grid-area: 1 / 4 / 5 / 10; }
+.firmware-desc-div { grid-area: 5 / 1 / 11 / 10; }
 
 .selector-icon {
     height: 24px;
@@ -25,13 +25,13 @@
     left: 12px;
     top: 12px;
 }
-.program-title {
+.firmware-title {
     font-size: 14px;
     margin: 4px 0 0 0px;
     margin-bottom: 0;
     height: 24px;
 }
-.program-version-selector {
+.firmware-version-selector {
     height: 20px;
     width: 72px;
     font-size: 10px;
@@ -48,7 +48,7 @@
     line-height: 18px !important;
     width: 14px;
 }
-.program-version-text {
+.firmware-version-text {
     height: 20px;
     width: calc(100% - 40px);
     text-align: center;
@@ -56,7 +56,7 @@
     line-height: 18px;
     margin: 0 4px;
 }
-.program-description {
+.firmware-description {
     font-size: 10px;
     opacity: 0.6;
     line-height: 12px;
@@ -74,7 +74,7 @@
 
 
 .lf-icon-div { grid-area: 1 / 1 / 10 / 4;  position: relative; pointer-events: none;}
-.lf-program-text-div { grid-area: 1 / 4 / 10 / 10; }
+.lf-firmware-text-div { grid-area: 1 / 4 / 10 / 10; }
 
 .long-form {
     width: calc(100% - 4px);
@@ -103,7 +103,7 @@
     height: 24px;
     margin: 16px 0 0 12px;
 }
-.lf-program-title {
+.lf-firmware-title {
     font-size: 14px;
     margin: 12px 0 0 4px;
     margin-bottom: 0;
