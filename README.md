@@ -14,5 +14,6 @@ npm run rebuild
 To start the Electron app:
 
 ```sh
+npm run build
 npm run electron
 ```
