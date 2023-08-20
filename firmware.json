@@ -1,10 +1,10 @@
 [
   {
-    "name": "DMComm Legacy",
-    "description": "Basic VPet Interface firmware. Used by w0rld, Alpha Serial, and Alpha Terminal.",
+    "name": "DMComm Original",
+    "description": "Original VPet Interface firmware. Use DMComm Arduino instead.",
     "creator": "BladeSabre",
     "repoURI": "dmcomm/dmcomm-project",
-    "enabled": false
+    "enabled": true
   },
   {
     "name": "DMComm Arduino",
