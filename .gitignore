@@ -5,12 +5,14 @@
 
 # Compiled output
 /dist
+/release
 /tmp
 /out-tsc
 /bazel-out
 
 # Node
 /node_modules
+/app/node_modules
 npm-debug.log
 yarn-error.log
 

@@ -1,12 +1,18 @@
 const { app, BrowserWindow, ipcMain, shell } = require('electron');
 const fs = require('fs');
 const path = require('path');
+const url = require('url');
+const unhandled = require('electron-unhandled');
 
 const { getPortsList, generateBoardFromConfig, flashHexFile } = require('./arduino');
 const { fetchFile, checkFile, removeFile } = require('./fetch-file');
 
 const prod = app.isPackaged;
 const fileName = "/firmware.hex";
+
+unhandled({
+	showDialog: true
+});
 
 let win;
 function createWindow() {
@@ -34,15 +40,19 @@ function createWindow() {
   });
 
   // Path when running electron executable
-  let pathIndex = './index.html';
+  let pathIndex = 'index.html';
 
-  if (fs.existsSync(path.join(__dirname, '../dist/index.html'))) {
+  if (!prod) {
     // Path when running electron in local folder
     pathIndex = '../dist/index.html';
   }
 
-  const url = new URL(path.join('file:', __dirname, pathIndex));
-  win.loadURL(url.href);
+  const appURL = url.format({
+    protocol: "file",
+    pathname: path.join( __dirname, pathIndex),
+    slashes: true,
+  });
+  win.loadURL(appURL);
 
   if(!prod) win.webContents.openDevTools();
 
@@ -112,10 +122,9 @@ ipcMain.on('linkto', (event, link) => {
 });
 
 ipcMain.on('upload', async (event, config) => {
-  const filePath = path.join(__dirname, fileName)
+  const filePath = path.join(app.getPath("appData"), fileName)
   const board = generateBoardFromConfig(config);
   if (typeof board === "string") {
-    console.log(board);
     win.webContents.send("upload-ret", board);
     return;
   }

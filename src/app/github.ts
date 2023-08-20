@@ -27,7 +27,8 @@ export class Repo {
 
   getBoards(): string[] {
     let boards: string[] = [];
-    // Assume first release has the supported boards for the repo
+    // Assume first release containing assets has the supported boards for the repo
+    // TODO(Manicben): Extend this to support additional boards in newer releases
     this.releases[0].assets.forEach((asset) => {
       boards.push(asset.board)
     });
@@ -80,10 +81,13 @@ export const getRepo = async (repoURI: string): Promise<Repo> => {
         asset.browser_download_url,
       ))
     })
-    releases.push(new Release(
-      release.tag_name,
-      assets,
-    ))
+    // If no assets, then we discard the release
+    if (assets.length > 0) {
+      releases.push(new Release(
+        release.tag_name,
+        assets,
+      ))
+    }
   })
 
   return new Repo(
@@ -95,9 +99,9 @@ export const getRepo = async (repoURI: string): Promise<Repo> => {
 }
 
 function getBoardName(assetName: string): string {
-  const arr = assetName.match("^.*-arduino-(.*).hex$")
+  const arr = assetName.match("^.*-(.*).hex$")
   if (arr) {
-    return "Arduino " + arr[1][0].toUpperCase() + arr[1].slice(1);
+    return arr[1];
   }
   return "";
 }

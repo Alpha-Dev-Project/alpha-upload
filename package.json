@@ -2,29 +2,38 @@
   "name": "alpha-upload",
   "version": "0.0.1",
   "productName": "Alpha Upload",
-  "description": "Software for uploading firmware to D/A/P/WiFi-Coms",
+  "description": "Software for uploading firmware to D/A-Coms",
   "homepage": "https://alphahub.site",
+  "author": {
+    "name": "Manicben"
+  },
   "main": "app/main.js",
   "scripts": {
+    "postinstall": "electron-builder install-app-deps",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --configuration development",
-    "build-prod": "ng build --configuration production",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "rebuild": "electron-rebuild",
     "test": "ng test",
     "electron": "electron .",
     "dist-mac": "electron-builder -m --x64 --arm64",
     "dist-linux": "electron-builder -l --x64 --arm64",
-    "dist-windows": "electron-builder --ia32 --x64 -w"
+    "dist-windows": "electron-builder -w --ia32 --x64",
+    "dist": "npm run build:prod && electron-builder build --publish=never"
   },
   "build": {
     "appId": "site.alphahub.alphaupload",
-    "icon": "icon.ico",
+    "icon": "dist/assets/images/icon.ico",
+    "buildDependenciesFromSource": true,
+    "npmRebuild": false,
+    "asar": true,
     "win": {
+      "icon": "dist/assets/images/icon.ico",
       "target": "portable"
     },
     "dmg": {
+      "icon": "dist/assets/images",
       "contents": [
         {
           "x": 110,
@@ -39,10 +48,26 @@
       ]
     },
     "linux": {
+      "icon": "dist/assets/images",
       "target": [
         "AppImage"
       ]
-    }
+    },
+    "files": [
+      "**/*",
+      "!**/*.ts",
+      "!*.map",
+      "!package.json",
+      "!package-lock.json",
+      {
+        "from": "../dist",
+        "filter": ["**/*"]
+      }
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "publish": null
   },
   "private": true,
   "dependencies": {
@@ -72,11 +97,9 @@
     "@angular-devkit/build-angular": "^14.1.0",
     "@angular/cli": "~14.1.0",
     "@angular/compiler-cli": "^14.1.0",
-    "@electron/rebuild": "^3.2.10",
     "@types/jasmine": "~4.0.0",
     "electron": "^24.0.0",
-    "electron-builder": "^23.6.0",
-    "electron-packager": "^17.1.1",
+    "electron-builder": "^24.6.3",
     "jasmine-core": "~4.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.1.0",

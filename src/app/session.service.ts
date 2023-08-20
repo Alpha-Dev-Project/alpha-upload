@@ -19,7 +19,7 @@ export class SessionService {
   public boards = boards;
   public config: IConfig = {
     port: "COM1",
-    microcontroller: "Arduino Nano",
+    microcontroller: "nano",
     processor: "ATmega328P",
     selected_firmware: 0,
     selected_firmware_version: 0

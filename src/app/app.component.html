@@ -33,7 +33,7 @@
         <mat-form-field class="form-2 form-select">
           <mat-select name="microcontroller" [(ngModel)]="session.config.microcontroller" [disabled]="session.com_ports.length === 0">
             <mat-option *ngFor="let board of session.firmware[session.config.selected_firmware].repo.getBoards()" [value]="board">
-              {{board}}
+              {{getPrettyName(board)}}
             </mat-option>
           </mat-select>
         </mat-form-field>

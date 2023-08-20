@@ -3,7 +3,7 @@ import { Observable, Observer } from 'rxjs';
 import { ElectronService } from 'ngx-electron-fresh';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { boards, BoardsNames } from './com-devices-data';
+import { boards } from './com-devices-data';
 import { SessionService } from './session.service';
 import { UploadComponent } from './upload/upload.component';
 import { TryAllUploadComponent } from './try-all-upload/try-all-upload.component';
@@ -42,21 +42,16 @@ export class AppComponent implements OnInit {
     this.expand = false;
   }
 
-  private getBoardIndex(board: string) {
-    const bn = board.toLowerCase().replaceAll(' ', '-') as BoardsNames;
-    return boards.map(e => e.name).indexOf(bn);
+  public getPrettyName(board: string) {
+    return boards[board].pretty_name
   }
 
   public checkProcessorOptionAvailable() {
-    const index = this.getBoardIndex(this.session.config.microcontroller);
-    if(index == -1) return false;
-    return boards[index].processor_option
+    return boards[this.session.config.microcontroller].processor_option
   }
 
   public getProcessorsList() {
-    const index = this.getBoardIndex(this.session.config.microcontroller);
-    if(index == -1) return [];
-    return boards[index].processors;
+    return boards[this.session.config.microcontroller].processors;
   }
 
   public upload() {

@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ElectronService } from 'ngx-electron-fresh';
-import { boards_indices } from '../com-devices-data';
 import { IConfig } from '../data-structures';
 import { SessionService } from '../session.service';
 import { UploadComponent } from '../upload/upload.component';
@@ -52,13 +51,14 @@ export class TryAllUploadComponent implements OnInit {
     const boards = this.session.firmware[this.session.config.selected_firmware].repo.getBoards();
 
     this.session.com_ports.forEach(port => {
-      this.session.boards.forEach(board => {
-        if(boards.includes(board.pretty_name)) {
+      for (const name in this.session.boards) {
+        let board = this.session.boards[name]
+        if(boards.includes(name)) {
           if(board.processor_option){
             board.processors.forEach(processor => {
               configs.push({
                 port: port.port,
-                microcontroller: board.pretty_name,
+                microcontroller: name,
                 processor: processor,
                 selected_firmware: this.session.config.selected_firmware,
                 selected_firmware_version: this.session.config.selected_firmware_version
@@ -68,14 +68,14 @@ export class TryAllUploadComponent implements OnInit {
           else {
             configs.push({
               port: port.port,
-              microcontroller: board.pretty_name,
+              microcontroller: name,
               processor: "",
               selected_firmware: this.session.config.selected_firmware,
               selected_firmware_version: this.session.config.selected_firmware_version
             });
           }
         }
-      });
+      }
     });
     this.configs_len = configs.length;
 
@@ -83,7 +83,7 @@ export class TryAllUploadComponent implements OnInit {
     this.complete = false;
     while(!this.complete) {
       let txt = `${configs[i].port} : ${configs[i].microcontroller}`;
-      if(this.session.boards[boards_indices.indexOf(configs[i].microcontroller)].processor_option)
+      if(this.session.boards[configs[i].microcontroller].processor_option)
         txt += ` : ${ configs[i].processor}`;
       this.consoleAppend(txt);
 
@@ -102,8 +102,9 @@ export class TryAllUploadComponent implements OnInit {
         port: config.port,
         microcontroller: config.microcontroller,
         processor: config.processor,
-        selected_firmware: this.session.firmware[config.selected_firmware],
-        selected_firmware_version: config.selected_firmware_version,
+        url: this.session.firmware[config.selected_firmware].repo
+           .releases[config.selected_firmware_version]
+           .getURLByBoard(config.microcontroller),
       }
       this.electron.ipcRenderer.send("upload", upload_conf);
       this.electron.ipcRenderer.on("upload-ret", (event: any, data: string | {text: string, error: any}) => {
@@ -122,7 +123,7 @@ export class TryAllUploadComponent implements OnInit {
           this.complete = true;
 
           txt = `Successful Config: COM Port: ${config.port} :: Board: ${config.microcontroller} `;
-          if(this.session.boards[boards_indices.indexOf(config.microcontroller)].processor_option)
+          if(this.session.boards[config.microcontroller].processor_option)
             txt += `:: Processor: ${config.processor} `;
           this.consoleAppend(txt);
 

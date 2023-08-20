@@ -1,0 +1,19 @@
+{
+    "name": "alpha-upload",
+    "version": "0.0.1",
+    "productName": "Alpha Upload",
+    "description": "Software for uploading firmware to D/A-Coms",
+    "homepage": "https://alphahub.site",
+    "author": {
+      "name": "Manicben"
+    },
+    "main": "main.js",
+    "private": true,
+    "dependencies": {
+      "electron-unhandled": "^4.0.1",
+      "avrgirl-arduino": "^5.0.1",
+      "follow-redirects": "^1.15.2",
+      "fs": "^0.0.1-security",
+      "path": "^0.12.7"
+    }
+}

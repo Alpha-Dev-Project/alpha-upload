@@ -10,14 +10,14 @@
     margin: 0;
     display: grid;
     grid-template-columns: repeat(9, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+    grid-template-rows: repeat(11, 1fr);
     grid-column-gap: 0px;
     grid-row-gap: 0px;
 }
 
 .icon-div { grid-area: 1 / 1 / 5 / 4;  position: relative; pointer-events: none;}
 .firmware-title-div { grid-area: 1 / 4 / 5 / 10; }
-.firmware-desc-div { grid-area: 5 / 1 / 11 / 10; }
+.firmware-desc-div { grid-area: 6 / 1 / 12 / 10; }
 
 .selector-icon {
     height: 24px;
@@ -29,7 +29,7 @@
     font-size: 14px;
     margin: 4px 0 0 0px;
     margin-bottom: 0;
-    height: 24px;
+    line-height: normal;
 }
 .firmware-version-selector {
     height: 20px;
@@ -107,6 +107,7 @@
     font-size: 14px;
     margin: 12px 0 0 4px;
     margin-bottom: 0;
+    line-height: normal;
 }
 
 mat-divider {

@@ -13,39 +13,35 @@ interface IUCBoard {
     processor_option: boolean,
 }
 
-export const boards: Array<IUCBoard> = [
-    {
-        name: "arduino-uno",
+export const boards: Record<string, IUCBoard> = {
+    "uno": {
+        name: "uno",
         pretty_name: "Arduino Uno",
         processors: [''],
         processor_option: false,
     },
-    {
-        name: "arduino-nano",
+    "nano": {
+        name: "nano",
         pretty_name: "Arduino Nano",
         processors: ['ATmega328P', 'ATmega328P (Old Bootloader)', 'ATmega168P'],
         processor_option: true,
     },
-    {
-        name: "arduino-leonardo",
+    "leonardo": {
+        name: "leonardo",
         pretty_name: "Arduino Leonardo",
         processors: [''],
         processor_option: false,
     },
-    {
+    "atmega328pb": {
+        name: "atmega328pb",
+        pretty_name: "MiniCore Nano",
+        processors: [''],
+        processor_option: false,
+    },
+    "raspberry-pi-pico": {
         name: "raspberry-pi-pico",
         pretty_name: "Raspberry Pi Pico",
         processors: [''],
         processor_option: false,
     }
-];
-
-export var boards_indices: Array<string> = []
-
-function fillBoardsIndices() {
-    for(let i: number = 0; i<boards.length; i++)
-        boards_indices[i] = boards[i].pretty_name;
-}
-fillBoardsIndices();
-
-export type BoardsNames = "arduino-uno" | "arduino-nano" | "raspberry-pi-pico";
+};

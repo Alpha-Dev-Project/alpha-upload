@@ -1,14 +1,21 @@
 [
   {
-    "name": "DMComm",
+    "name": "DMComm Legacy",
     "description": "Basic VPet Interface firmware. Used by w0rld, Alpha Serial, and Alpha Terminal.",
     "creator": "BladeSabre",
     "repoURI": "dmcomm/dmcomm-project",
+    "enabled": false
+  },
+  {
+    "name": "DMComm Arduino",
+    "description": "Basic VPet Interface firmware. Used by w0rld, Alpha Serial, and Alpha Terminal.",
+    "creator": "BladeSabre",
+    "repoURI": "dmcomm/dmcomm-arduino-lib",
     "enabled": true
   },
   {
     "name": "DMComm NeoPixel",
-    "description": "Fork of dmcomm that uses Neopixel LEDs and supports the same apps.",
+    "description": "Fork of dmcomm-project that uses Neopixel LEDs and supports the same apps.",
     "creator": "Manicben",
     "repoURI": "Manicben/dmcomm-neopixel",
     "enabled": true

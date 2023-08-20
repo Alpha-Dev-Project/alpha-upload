@@ -90,10 +90,11 @@ function orderComPorts(ports) {
 const generateBoardFromConfig = function generateBoardFromConfig(config) {
   let board = "";
   switch (config.microcontroller) {
-    case "Arduino Uno":
-      board = "uno";
+    case "uno":
+    case "leonardo":
+      board = config.microcontroller;
       break;
-    case "Arduino Nano":
+    case "nano":
       switch (config.processor) {
         case "ATmega328P (Old Bootloader)":
         case "ATmega168P":
@@ -105,8 +106,8 @@ const generateBoardFromConfig = function generateBoardFromConfig(config) {
         default: return "Failed to identify board type.";
       }
       break;
-    case "Arduino Leonardo":
-      board = "leonardo";
+    case "atmega328pb":
+      board = "nano";
       break;
     default: return "Failed to identify board type.";
   }

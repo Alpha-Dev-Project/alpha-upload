@@ -13,7 +13,7 @@ const fetchFile = function fetchFile(url, filePath) {
     });
 
     file.on('finish', () => {
-      console.log("Complete");
+      console.log("Fetched file and wrote to: " + filePath);
       resolve("OK");
     });
   });
@@ -22,16 +22,16 @@ const fetchFile = function fetchFile(url, filePath) {
 const checkFile = function checkFile(filePath) {
   return new Promise(async (resolve, reject) => {
     if (!fs.existsSync(filePath)) {
-      console.log("File doesn't exist.");
+      console.log("File doesn't exist at: " + filePath);
       return reject("File doesn't exist.");
     }
 
     if ((await getFirstLine(filePath))[0] !== ":") {
-      console.log("File doesn't exist.");
+      console.log("File doesn't exist at: " + filePath);
       return reject("File doesn't exist.");
     }
 
-    console.log("File Exists");
+    console.log("File exists at: " + filePath);
     resolve("OK");
   });
 }
@@ -40,7 +40,7 @@ const removeFile = function removeFile(filePath) {
   return new Promise((resolve, reject) => {
     fs.unlink(filePath, err => {
       if (err) return reject(err);
-      console.log("File Removed");
+      console.log("File removed from: " + filePath);
       resolve("OK");
     })
   });
