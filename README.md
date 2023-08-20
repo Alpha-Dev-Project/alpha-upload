@@ -8,7 +8,6 @@ To install and rebuild dependencies against your Node.js version:
 
 ```sh
 npm install
-npm run rebuild
 ```
 
 To start the Electron app:
@@ -16,4 +15,10 @@ To start the Electron app:
 ```sh
 npm run build
 npm run electron
+```
+
+To build the Electron app for your system:
+
+```sh
+npm run dist
 ```
