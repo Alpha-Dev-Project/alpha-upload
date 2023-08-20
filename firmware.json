@@ -4,7 +4,7 @@
     "description": "Basic VPet Interface firmware. Used by w0rld, Alpha Serial, and Alpha Terminal.",
     "creator": "BladeSabre",
     "repoURI": "dmcomm/dmcomm-project",
-    "enabled": true
+    "enabled": false
   },
   {
     "name": "DMComm NeoPixel",
