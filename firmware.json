@@ -1,12 +1,5 @@
 [
   {
-    "name": "DMComm Original",
-    "description": "Original VPet Interface firmware. Use DMComm Arduino instead.",
-    "creator": "BladeSabre",
-    "repoURI": "dmcomm/dmcomm-project",
-    "enabled": true
-  },
-  {
     "name": "DMComm Arduino",
     "description": "Basic VPet Interface firmware. Used by w0rld, Alpha Serial, and Alpha Terminal.",
     "creator": "BladeSabre",
@@ -14,17 +7,17 @@
     "enabled": true
   },
   {
-    "name": "DMComm NeoPixel",
-    "description": "Fork of dmcomm-project that uses Neopixel LEDs and supports the same apps.",
-    "creator": "Manicben",
-    "repoURI": "Manicben/dmcomm-neopixel",
+    "name": "DMComm Original",
+    "description": "Original VPet Interface firmware. Use DMComm Arduino instead.",
+    "creator": "BladeSabre",
+    "repoURI": "dmcomm/dmcomm-project",
     "enabled": true
   },
   {
-    "name": "LinkCom",
-    "description": "VPet Interface firmware for realtime battles. Used by Alpha Link.",
-    "creator": "Ben | Katsu",
-    "enabled": false,
-    "isHex": true
+    "name": "DMComm NeoPixel",
+    "description": "Fork of DMComm Original that uses Neopixel LEDs and supports the same apps.",
+    "creator": "Manicben",
+    "repoURI": "Manicben/dmcomm-neopixel",
+    "enabled": true
   }
 ]
